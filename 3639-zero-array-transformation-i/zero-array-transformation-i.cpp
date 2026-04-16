@@ -22,7 +22,7 @@ public:
 
         }
         for(int i = 0; i<n; i++){
-            if(res[i] = res[i] + nums[i]);
+            res[i] = res[i] + nums[i];
         }
 
         for(int i = 0; i<n; i++){
