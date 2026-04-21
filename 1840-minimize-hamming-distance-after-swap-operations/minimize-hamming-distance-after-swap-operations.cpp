@@ -19,13 +19,13 @@ void Union(int x, int y){
     if(rootX == rootY){
         return;
     }
-    // union by rank
+    
     if(rank[rootX] < rank[rootY]){
-        swap(rootX,rootY);
-    }
-    parent[rootY] = rootX;
-
-    if(parent[rootX] == parent[rootY]){
+        parent[rootX] = rootY;
+    }else if(rank[rootY] < rank[rootX]){
+        parent[rootY] = rootX;
+    }else{
+        parent[rootY] = rootX;
         rank[rootX]++;
     }
 }
