@@ -25,7 +25,10 @@ bool isVowel(char ch){
     if(a.second != b.second){
         return a.second > b.second;
     } else {
-        return mp1[a.first] < mp1[b.first];
+       int idx1 = mp1[a.first];
+       int idx2 = mp1[b.first];
+
+       return idx1 < idx2;
     }
 });
         string ans = "";
