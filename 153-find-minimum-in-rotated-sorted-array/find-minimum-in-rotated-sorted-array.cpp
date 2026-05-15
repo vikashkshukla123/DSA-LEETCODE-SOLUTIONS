@@ -6,17 +6,17 @@ public:
         int low = 0;
         int high = n-1;
         int mid;
-        while(low <= high){
+        while(low <  high){
             mid = low + (high - low)/2;
-            if(nums[low] <= nums[mid]){
-                ans = min(ans,nums[low]);
+            if(nums[mid] > nums[high]){
                 low = mid + 1;
             }else{
-                ans = min(ans,nums[high]);
                 high = mid;
             }
+           
+
         }
 
-        return ans;
+        return nums[high];
     }
 };
