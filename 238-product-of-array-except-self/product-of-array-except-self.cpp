@@ -2,31 +2,36 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         int n = nums.size();
-        vector<int>preMul(n,1);
-        vector<int>suffMul(n,1);
-        preMul[0] = nums[0];
-
-        for(int i = 1; i<n; i++){
-            preMul[i] = nums[i] * preMul[i-1];
-
-        }
-        suffMul[n-1] = nums[n-1];
-        for(int i = n-2; i>=0; i--){
-            suffMul[i] = nums[i] * suffMul[i+1];
-        }
-
-        vector<int>ans;
-        for(int i = 0; i<n; i++){
-            if(i == 0){
-                ans.push_back(suffMul[i+1]);
-            }else if(i == n-1){
-                ans.push_back(preMul[i-1]);
+        int cnt = 0;
+        long long product_without_zero = 1;
+        for(int i = 0; i < n; i++){
+            if(nums[i] == 0){
+                cnt++;
             }else{
-                ans.push_back(preMul[i-1] * suffMul[i+1]);
+                product_without_zero *= nums[i];
             }
         }
 
-return ans;
-        
+
+        vector<int>ans;
+        for(int i = 0; i < n; i++){
+            int num = nums[i];
+            if(num == 0){
+                if(cnt > 1){
+                    ans.push_back(0);
+                }else{
+                    ans.push_back(product_without_zero);
+                }
+            }else{
+                if(cnt > 0){
+                    ans.push_back(0);
+                }
+                else{
+                    ans.push_back(product_without_zero / nums[i]);
+                }
+            }
+
+        }
+        return ans;
     }
 };
