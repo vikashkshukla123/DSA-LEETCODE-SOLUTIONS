@@ -11,7 +11,7 @@ vector<int>solve(vector<int>&nums, int k){
         while(!dq.empty() && dq.front() <=  right - k){
             dq.pop_front();
         }
-        while(!dq.empty() && nums[right] >= nums[dq.back()]){
+        while(!dq.empty() && nums[right] > nums[dq.back()]){
             dq.pop_back();
         }
 
