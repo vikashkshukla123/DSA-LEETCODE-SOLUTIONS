@@ -1,47 +1,33 @@
 class Solution {
 public:
     string mapWordWeights(vector<string>& words, vector<int>& weights) {
-        int n = words.size();
         unordered_map<char,int>mp;
         unordered_map<int,char>mp1;
+        int idx = 0;
+        int cnt = 0;
+        for(char ch = 'a'; ch <= 'z'; ch++){
+            mp[ch] = weights[idx];
+            idx++;
+        }
         char ch = 'a';
-        for(int i = 0; i<weights.size(); i++){
-            mp[ch] = weights[i];
+        for(int num = 25; num >= 0; num--){
+            mp1[num] = ch;
             ch++;
 
         }
 
-        int cnt = 25;
-        char ch1 = 'a';
-        for(int i = 0; i<26; i++){
-            mp1[cnt] = ch1;
-            ch1++;
-            cnt--;
-        }
-
-
-
-
         string ans = "";
-        for(int i = 0; i<n; i++){
-            string word = words[i];
-
-            int m = word.length();
-            int sum = 0;
-            for(int i = 0; i<m; i++){
-                sum += mp[word[i]];
-
-
+        for(string &s : words){
+            int weight = 0;
+            for(int j = 0; j < s.length(); j++){
+                weight += mp[s[j]];
             }
 
+            weight = (weight) % 26;
 
-            sum = sum % 26;
-
-            ans += mp1[sum];
-
+            ans += mp1[weight];
         }
+return ans;
 
-        return ans;
-        
     }
 };
