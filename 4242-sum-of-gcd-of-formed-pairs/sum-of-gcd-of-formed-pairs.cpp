@@ -2,37 +2,37 @@ class Solution {
 public:
     long long gcdSum(vector<int>& nums) {
         int n = nums.size();
-        vector<long long>gcdVal(n,0);
         vector<int>maxi(n,0);
+        vector<int>prefixGcd(n,0);
+
         maxi[0] = nums[0];
-        for(int i = 1; i<n; i++){
+        prefixGcd[0] = gcd(nums[0], maxi[0]);
+
+        for(int i = 1; i < n; i++){
             maxi[i] = max(nums[i], maxi[i-1]);
+            prefixGcd[i] = gcd(nums[i], maxi[i]);
         }
 
-        for(int i = 0; i<n; i++){
-            long long val = gcd(nums[i],maxi[i]);
-            gcdVal[i] = val;
-        }
-
-        sort(gcdVal.begin(),gcdVal.end());
-        int m = gcdVal.size();
-
-
-        long long total_sum = 0;
+        sort(prefixGcd.begin(),prefixGcd.end());
+        vector<int>gcdPair;
         int i = 0;
         int j = n-1;
         while(i < j){
-            int val1 = gcdVal[i];
-            int val2 = gcdVal[j];
+            int n1 = prefixGcd[i];
+            int n2 = prefixGcd[j];
 
-            long long val = gcd(val1,val2);
-            total_sum += val;
+            int n3 = gcd(n1,n2);
+            gcdPair.push_back(n3);
+
             i++;
             j--;
         }
 
-        return total_sum;
-
+        long long ans = 0;
+        for(int i = 0; i < gcdPair.size(); i++){
+            ans += (1LL * gcdPair[i]);
+        }
+return ans;
         
     }
 };
