@@ -3,36 +3,30 @@ public:
     vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {
         int n = grid.size();
         int m = grid[0].size();
-        int l = n * m;
 
-        vector<int> p(l);
-        int idx = 0;
+        vector<int>ans;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m ; j++){
+                ans.push_back(grid[i][j]);
+            }
+        }
+        int ans_size = n * m;
 
-        // Flatten the grid
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                p[idx++] = grid[i][j];
+        for(int i = 0; i < k; i++){
+            reverse(ans.begin(), ans.begin() + n*m - 1);
+            reverse(ans.begin(),ans.end());
+            
+        }
+        
+        vector<vector<int>>result(n,vector<int>(m,0));
+        int step = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                result[i][j] = ans[step];
+                step++;
             }
         }
 
-        k = k % l; // Important: effective rotation
-
-        if (k == 0) return grid; // no shift needed
-
-        // Rotate right by k
-        reverse(p.begin(), p.end());
-        reverse(p.begin(), p.begin() + k);
-        reverse(p.begin() + k, p.end());
-
-        // Convert back to 2D
-        vector<vector<int>> ans(n, vector<int>(m));
-        idx = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                ans[i][j] = p[idx++];
-            }
-        }
-
-        return ans;
+        return result;
     }
 };
