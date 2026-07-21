@@ -2,36 +2,35 @@ class Solution {
 public:
     int maxActiveSectionsAfterTrade(string s) {
         int n = s.length();
-        int cnt_1 = 0;
-        for(int i = 0; i<n; i++){
-            if(s[i] == '1') cnt_1++;
+        vector<pair<char,int>>vec;
+        int cnt1 = 0;
+        for(int i = 0; i < n; i++){
+            if(s[i] == '1'){
+                cnt1++;
+            }
         }
-        
-        vector<pair<char,int>>store;
         int i = 0;
-        int j = 0;
         while(i < n){
+            char ch = s[i];
+            int j = i;
             int cnt = 0;
-            int current = s[i];
-            
-            while(j<n && s[j] == current){
+            while(j < n && s[j] == ch){
                 cnt++;
                 j++;
+                
             }
-            store.push_back({s[i], cnt});
             i = j;
+            vec.push_back({ch, cnt});
         }
 
-        int m = store.size();
-        int maxi = 0;
-        for(int i = 1; i<m-1; i++){
-            int ans = 0;
-            if(store[i].first == '1' && store[i-1].first == '0' && store[i+1].first == '0'){
-                ans = store[i-1].second + store[i+1].second;
-                maxi = max(maxi, ans);
-
+        int ans = 0;
+        for(int i = 1; i < vec.size()-1; i++){
+            if(vec[i].first == '1' && vec[i+1].first == '0' && vec[i-1].first == '0'){
+                ans = max(ans, vec[i-1].second + vec[i+1].second);
             }
+
         }
-        return cnt_1 + maxi;
+
+       return(ans + cnt1);
     }
 };
