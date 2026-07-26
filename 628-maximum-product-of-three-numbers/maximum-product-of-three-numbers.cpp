@@ -3,26 +3,10 @@ public:
     int maximumProduct(vector<int>& nums) {
         int n = nums.size();
         sort(nums.begin(),nums.end());
-        int ans = -1e9;
-        int i = 0;
-        while(i < n-2){
-            int j = i+1;
-            int k = n-1;
-            int sum = 0;
-            sum += nums[i]*nums[j]*nums[k];
+        int case1 = nums[n-1] * nums[n-2] * nums[n-3];
+        int case2 = nums[0] * nums[1] * nums[n-1];
 
-
-
-            if(sum < ans){
-                j++;
-            }
-
-            ans = max(ans,sum);
-
-            i++;
-            
-        }
-        return ans;
+        return max(case1,case2);
         
     }
 };
