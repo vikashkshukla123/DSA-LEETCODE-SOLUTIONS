@@ -1,13 +1,26 @@
 # Write your MySQL query statement below
 WITH cte AS
-(SELECT requester_id AS id, accepter_id
-FROM RequestAccepted
-UNION
-SELECT accepter_id AS id, requester_id
-FROM RequestAccepted)
+(SELECT r1.requester_id, r1.accepter_id, accept_date
+FROM RequestAccepted r1
+UNION 
+SELECT r2.accepter_id, r2.requester_id,accept_date
+FROM RequestAccepted r2),
 
-SELECT id, COUNT(DISTINCT accepter_id) AS num
+cte2 AS
+(SELECT requester_id, COUNT(*) AS friends
 FROM cte
-GROUP BY id
-ORDER BY num DESC
+GROUP BY requester_id)
+
+SELECT cte2.requester_id AS id , cte2.friends AS num
+FROM cte2
+ORDER BY friends DESC
 LIMIT 1
+
+
+
+
+
+
+
+
+
