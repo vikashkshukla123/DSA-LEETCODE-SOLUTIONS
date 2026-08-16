@@ -1,4 +1,7 @@
 # Write your MySQL query statement below
-SELECT player_id, MIN(event_date) AS first_login
-FROM Activity
-GROUP BY player_id
+WITH cte AS
+(SELECT* ,DENSE_RANK() OVER(PARTITION BY player_id ORDER BY event_date) AS rnk
+FROM Activity)
+SELECT c.player_id, c.event_date AS first_login
+FROM cte c
+WHERE c.rnk = 1
