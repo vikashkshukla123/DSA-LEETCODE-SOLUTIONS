@@ -15,9 +15,6 @@ public:
                 sum -= arr[left];
                 left++;
             }
-            if(right > 0){
-                minLen[right] = minLen[right-1];
-            }
 
             if(sum == target){
                int len = right - left + 1;
