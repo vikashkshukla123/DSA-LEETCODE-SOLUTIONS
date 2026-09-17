@@ -3,6 +3,7 @@ public:
     int minSumOfLengths(vector<int>& arr, int target) {
         int n = arr.size();
         int ans = 1e9;
+        int bestMinLen = 1e9;
         vector<int>minLen(n,1e9);
         int left = 0;
         int right = 0;
@@ -23,13 +24,14 @@ public:
                if(left > 0 && minLen[left-1] != 1e9){
                 ans = min(ans, len + minLen[left-1]);
                }
+              
+              bestMinLen = min(bestMinLen,len);
 
-
-               minLen[right] = min(minLen[right], len);
 
             }
-
+            minLen[right] = bestMinLen;
             right++;
+    
         
         }
         
